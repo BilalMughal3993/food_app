@@ -7,19 +7,25 @@ import yelp from "../api/yelp";
 
 const SearchScreen = ()=>{
 
-const[term,setTerm]=useState('')
+const[term,setTerm]=useState('');
 const[result,setResult]=useState([]);
+const[errorMessage,setErrorMessage]=useState("");
 
 const searchApi =  async ()=>{
-    const response = await yelp.get('/search',{
-        params:{
-            limit:50,
-            term,
-            location:"san jose"
+    try {
+        const response = await yelp.get('/search',{
+            params:{
+                limit:50,
+                term,
+                location:"san jose"
+        
+            }
+        });
+        setResult(response.data.businesses)
+    } catch (error) {
+        setErrorMessage("Something Went wrong")
+    }
     
-        }
-    });
-    setResult(response.data.businesses)
    
 } 
 
@@ -29,6 +35,7 @@ const searchApi =  async ()=>{
             onTermChange={setTerm}
             onTermSubmit={searchApi}/>
             <Text>{result.length}</Text>
+           {errorMessage? <Text>{errorMessage}</Text>:null}
 
         </View>
     )
