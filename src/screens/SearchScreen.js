@@ -22,8 +22,8 @@ const searchApi =  async ()=>{
             }
         });
         setResult(response.data.businesses)
-    } catch (error) {
-        setErrorMessage("Something Went wrong")
+    } catch (err) {
+        setErrorMessage('Something Went wrong')
     }
     
    
@@ -35,7 +35,7 @@ const searchApi =  async ()=>{
             onTermChange={setTerm}
             onTermSubmit={searchApi}/>
             <Text>{result.length}</Text>
-           {errorMessage? <Text>{errorMessage}</Text>:null}
+           {errorMessage ? <Text>{errorMessage}</Text> : null}
 
         </View>
     )
